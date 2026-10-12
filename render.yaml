@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: e-vote-test-app
+    runtime: python
+    plan: free
+    buildCommand: "unzip -o e-vote-github-upload.zip -d build && pip install cmake==3.31.6 && pip install -r build/e-vote/requirements.txt"
+    startCommand: "cd build/e-vote && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: DATABASE_URL
+        fromDatabase:
+          name: e-vote-test-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: MAX_VOTERS
+        value: "50"
+      - key: BOOTSTRAP_ADMIN_TOKEN
+        sync: false
+      - key: DATABASE_ENCRYPTION_KEY
+        sync: false
+
+databases:
+  - name: e-vote-test-db
+    databaseName: evote
+    user: evote
+    plan: free
