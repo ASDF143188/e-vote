@@ -3,7 +3,7 @@ services:
     name: e-vote-test-app
     runtime: python
     plan: free
-    buildCommand: "unzip -o e-vote-github-upload-v4.zip -d build && pip install -r build/requirements.txt && pip install --no-deps face-recognition==1.3.0"
+    buildCommand: "unzip -o e-vote-github-upload-v5.zip -d build && pip install -r build/requirements.txt && pip install --no-deps face-recognition==1.3.0"
     startCommand: "cd build && uvicorn main:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: /api/health
     envVars:
@@ -22,8 +22,10 @@ services:
       - key: DATABASE_ENCRYPTION_KEY
         sync: false
 
+
 databases:
   - name: e-vote-test-db
     databaseName: evote
     user: evote
     plan: free
+
