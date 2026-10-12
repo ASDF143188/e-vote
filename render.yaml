@@ -3,7 +3,7 @@ services:
     name: e-vote-test-app
     runtime: python
     plan: free
-    buildCommand: "unzip -o e-vote-github-upload.zip -d build && pip install cmake==3.31.6 && pip install -r build/e-vote/requirements.txt"
+    buildCommand: "unzip -o e-vote-github-upload-v3.zip -d build && pip install -r build/e-vote/requirements.txt && pip install --no-deps face-recognition==1.3.0"
     startCommand: "cd build/e-vote && uvicorn main:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: /api/health
     envVars:

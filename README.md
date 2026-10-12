@@ -23,7 +23,7 @@ Generate local test secrets with `python -c "import secrets; print(secrets.token
 
 ## Render test deployment
 
-The Blueprint needs `render.yaml` and `e-vote-github-upload.zip` at the GitHub repository root. Choose **New → Blueprint**, connect the repository, and set `BOOTSTRAP_ADMIN_TOKEN` and `DATABASE_ENCRYPTION_KEY` as secret environment values. The Blueprint uses free Render services and a free Postgres database, which expires after 30 days; treat all records as temporary. Do not use real voters or election data. The test service requires the Render Python build to successfully install `face-recognition`/dlib; if it cannot, face endpoints return an unavailable error rather than fake a match.
+The Blueprint needs `render.yaml` and `e-vote-github-upload-v3.zip` at the GitHub repository root. Choose **New → Blueprint**, connect the repository, and set `BOOTSTRAP_ADMIN_TOKEN` and `DATABASE_ENCRYPTION_KEY` as secret environment values. The Blueprint uses free Render services and a free Postgres database, which expires after 30 days; treat all records as temporary. Do not use real voters or election data. Deployment installs a prebuilt `dlib-bin` wheel to avoid compiling dlib in Render's memory-limited build environment; face matching uses `face-recognition`. The service has no liveness checks and must not be used for real elections.
 
 ## Security limits
 
